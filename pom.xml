@@ -21,6 +21,13 @@
   		<scope>provided</scope>
    	</dependency>
    	
+   	<dependency>
+   		<groupId>javax</groupId>
+   		<artifactId>javaee-api</artifactId>
+   		<version>7.0</version>
+   		<scope>provided</scope>
+   	</dependency>
+   	
   	<dependency>
   		<groupId>javax.faces</groupId>
   		<artifactId>javax.faces-api</artifactId>
@@ -38,6 +45,13 @@
   		<groupId>org.primefaces</groupId>
   		<artifactId>primefaces</artifactId>
   		<version>5.3</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-core</artifactId>
+  		<version>4.2.18.Final</version>
+  		<scope>provided</scope>
   	</dependency>
   	
   	<!-- test -->

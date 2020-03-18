@@ -9,7 +9,7 @@ public class ExecutadorRegras<A extends Instance<? extends RegraValidacao>, D> {
 	
 	private ContextoValidacao contexto;
 	
-	public void validar(ContextoValidacao contexto, A regras, D dado) throws ViolacoesException{
+	protected void validar(ContextoValidacao contexto, A regras, D dado) throws ViolacoesException{
 			
 		regras.forEach(r-> r.validar(contexto, dado));
 		

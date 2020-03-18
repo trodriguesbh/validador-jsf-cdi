@@ -1,6 +1,7 @@
 package br.com.talmar.validador.managedbean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -11,6 +12,8 @@ import javax.inject.Named;
 
 import br.com.talmar.validador.exceptions.ViolacaoException;
 import br.com.talmar.validador.exceptions.ViolacoesException;
+import br.com.talmar.validador.model.Contato;
+import br.com.talmar.validador.service.ContatoService;
 import br.com.talmar.validador.validacao.contato.ValidadorContato;
 import br.com.talmar.validador.vo.ContatoVO;
 
@@ -23,13 +26,16 @@ public class ValidadorMB implements Serializable {
 	 */
 	private static final long serialVersionUID = -1347751506591380493L;
 	private ContatoVO contato;
-	
+
 	@Inject
-	private ValidadorContato validador;
-	
+	private ContatoService service;
+
+	private List<Contato> contatos;
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		contato = new ContatoVO();
+		 contatos = service.carregarTodos();
 	}
 
 	public ContatoVO getContato() {
@@ -41,25 +47,35 @@ public class ValidadorMB implements Serializable {
 	}
 
 	public String salvar() {
-		
+
 		try {
-			validador.validarContato(this.contato);
-			
+			service.salvar(contato);
+
 			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Contato salvo com sucesso."));
 			contato = new ContatoVO();
-		} catch (ViolacoesException e){
+			contatos = service.carregarTodos();
+		} catch (ViolacoesException e) {
 			addViolacoes(e);
 		}
-		
+
 		return null;
 	}
 
 	private void addViolacoes(ViolacoesException e) {
-		
-		for (ViolacaoException v : e.getViolacoes()){
+
+		for (ViolacaoException v : e.getViolacoes()) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, v.getMensagem(), null));
 		}
-		
+
 	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
+	}
+
 }
