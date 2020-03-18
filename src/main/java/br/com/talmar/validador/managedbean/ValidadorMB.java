@@ -10,11 +10,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.talmar.validador.exceptions.ViolacaoException;
+import br.com.talmar.validador.exceptions.Violacao;
 import br.com.talmar.validador.exceptions.ViolacoesException;
 import br.com.talmar.validador.model.Contato;
 import br.com.talmar.validador.service.ContatoService;
-import br.com.talmar.validador.vo.ContatoVO;
 
 @Named("validadorMB")
 @ViewScoped
@@ -24,7 +23,7 @@ public class ValidadorMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1347751506591380493L;
-	private ContatoVO contato;
+	private Contato contato;
 
 	@Inject
 	private ContatoService service;
@@ -33,15 +32,15 @@ public class ValidadorMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		contato = new ContatoVO();
-		 contatos = service.carregarTodos();
+		contato = new Contato();
+		contatos = service.carregarTodos();
 	}
 
-	public ContatoVO getContato() {
+	public Contato getContato() {
 		return contato;
 	}
 
-	public void setContato(ContatoVO contato) {
+	public void setContato(Contato contato) {
 		this.contato = contato;
 	}
 
@@ -51,7 +50,7 @@ public class ValidadorMB implements Serializable {
 			service.salvar(contato);
 
 			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Contato salvo com sucesso."));
-			contato = new ContatoVO();
+			contato = new Contato();
 			contatos = service.carregarTodos();
 		} catch (ViolacoesException e) {
 			addViolacoes(e);
@@ -60,9 +59,21 @@ public class ValidadorMB implements Serializable {
 		return null;
 	}
 
+	public void actionExcluir(Contato contato) {
+		try {
+			service.excluir(contato);
+
+			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Contato excluído com sucesso."));
+			contatos = service.carregarTodos();
+		} catch (ViolacoesException e) {
+			addViolacoes(e);
+		}
+
+	}
+
 	private void addViolacoes(ViolacoesException e) {
 
-		for (ViolacaoException v : e.getViolacoes()) {
+		for (Violacao v : e.getViolacoes()) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, v.getMensagem(), null));
 		}

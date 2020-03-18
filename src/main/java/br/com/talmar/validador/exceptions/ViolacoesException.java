@@ -9,13 +9,13 @@ public class ViolacoesException extends Exception{
 	 */
 	private static final long serialVersionUID = -3840125768925852670L;
 	
-	private List<ViolacaoException> violacoes;
+	private List<Violacao> violacoes;
 	
-	public ViolacoesException(List<ViolacaoException> violacoes) {
+	public ViolacoesException(List<Violacao> violacoes) {
 		this.violacoes = violacoes;
 	}
 
-	public List<ViolacaoException> getViolacoes() {
+	public List<Violacao> getViolacoes() {
 		return violacoes;
 	}
 	

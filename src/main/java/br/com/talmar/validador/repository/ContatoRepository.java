@@ -20,8 +20,13 @@ public class ContatoRepository {
 		em.persist(contato);
 	}
 	
-	public void delete(Contato contato){
+	public void delete(Long id){
+		Contato contato = findById(id);
 		em.remove(contato);
+	}
+	
+	public Contato findById(Long id){
+		return em.find(Contato.class, id);
 	}
 	
 	public List<Contato> loadAll(){

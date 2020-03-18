@@ -13,7 +13,7 @@ public class ExecutadorRegras<A extends Instance<? extends RegraValidacao>, D> {
 			
 		regras.forEach(r-> r.validar(contexto, dado));
 		
-		contexto.gerarCriticas();
+		contexto.verificarCriticas();
 	}
 
 }

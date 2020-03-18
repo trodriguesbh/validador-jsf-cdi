@@ -6,12 +6,13 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Exemplo Validacao - JSF, CDI</title>
+	<title>Exemplo Validacao - JSF, CDI, EJB</title>
 	<style>
-		body {
-			margin: 50px auto 100px auto;
-			width: 70%;
-		}
+body {
+	margin: 50px auto 100px auto;
+	width: 70%;
+	font-size: 9pt;
+}
 </style>
 </h:head>
 <h:body>
@@ -22,11 +23,11 @@
 		<p:panel header="Novo Contato">
 
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Nome" for="nome"/>
+				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" label="Nome" size="30"
 					value="#{validadorMB.contato.nome}" />
 
-				<p:outputLabel value="Email" for="email"/>
+				<p:outputLabel value="Email" for="email" />
 				<p:inputText id="email" label="Email" size="30"
 					value="#{validadorMB.contato.email}" />
 			</h:panelGrid>
@@ -34,19 +35,25 @@
 			<p:commandButton value="Salvar" action="#{validadorMB.salvar}"
 				update="@form, datatable, messages" />
 		</p:panel>
+
+		<br />
+
+		<p:dataTable id="datatable" var="contato"
+			value="#{validadorMB.contatos}">
+			<p:column headerText="Nome">
+				<h:outputText value="#{contato.nome}" />
+			</p:column>
+
+			<p:column headerText="Email">
+				<h:outputText value="#{contato.email}" />
+			</p:column>
+
+			<p:column width="30">
+				<p:commandButton icon ="ui-icon-trash" action="#{validadorMB.actionExcluir(contato)}"
+					update="@form"/>
+			</p:column>
+		</p:dataTable>
 	</h:form>
-	<br />
-
-	<p:dataTable id="datatable" var="contato"
-		value="#{validadorMB.contatos}">
-		<p:column headerText="Nome">
-			<h:outputText value="#{contato.nome}" />
-		</p:column>
-
-		<p:column headerText="Email">
-			<h:outputText value="#{contato.email}" />
-		</p:column>
-	</p:dataTable>
 
 </h:body>
 </html>

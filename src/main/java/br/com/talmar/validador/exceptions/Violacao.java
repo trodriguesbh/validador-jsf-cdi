@@ -1,6 +1,6 @@
 package br.com.talmar.validador.exceptions;
 
-public class ViolacaoException extends Exception {
+public class Violacao {
 
 	/**
 	 * 
@@ -10,7 +10,7 @@ public class ViolacaoException extends Exception {
 	private String mensaagem;
 	
 		
-	public ViolacaoException(String mensagem){
+	public Violacao(String mensagem){
 		this.mensaagem = mensagem;
 	}
 
