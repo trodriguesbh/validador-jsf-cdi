@@ -14,7 +14,6 @@ import br.com.talmar.validador.exceptions.ViolacaoException;
 import br.com.talmar.validador.exceptions.ViolacoesException;
 import br.com.talmar.validador.model.Contato;
 import br.com.talmar.validador.service.ContatoService;
-import br.com.talmar.validador.validacao.contato.ValidadorContato;
 import br.com.talmar.validador.vo.ContatoVO;
 
 @Named("validadorMB")
