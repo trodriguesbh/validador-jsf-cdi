@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Exemplo Validacao - JSF, CDI, EJB</title>
@@ -25,11 +25,14 @@ body {
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" label="Nome" size="30"
-					value="#{validadorMB.contato.nome}" />
+					value="#{validadorMB.contato.nome}" required="true" requiredMessage="Nome preenchimento obrigatório"/>
 
 				<p:outputLabel value="Email" for="email" />
 				<p:inputText id="email" label="Email" size="30"
-					value="#{validadorMB.contato.email}" />
+					value="#{validadorMB.contato.email}" required="true" requiredMessage="Email preenchimento obrigatório"/>
+
+				<p:outputLabel value="Dt. Nasc" for="dtnasc" />
+				<p:calendar id="dtnasc" value="#{validadorMB.contato.dtNascimento}" showOtherMonths="true" showWeek="true" mask="99/99/9999" pattern="dd/MM/yyyy" />
 			</h:panelGrid>
 
 			<p:commandButton value="Salvar" action="#{validadorMB.salvar}"
@@ -40,6 +43,10 @@ body {
 
 		<p:dataTable id="datatable" var="contato"
 			value="#{validadorMB.contatos}">
+			<p:column headerText="Código" width="45" style="text-align:center;">
+				<h:outputText value="#{contato.id}" />
+			</p:column>
+
 			<p:column headerText="Nome">
 				<h:outputText value="#{contato.nome}" />
 			</p:column>
@@ -47,10 +54,16 @@ body {
 			<p:column headerText="Email">
 				<h:outputText value="#{contato.email}" />
 			</p:column>
+			
+			<p:column headerText="Dt. Nascimento" width="97" style="text-align:center;">
+				<h:outputText value="#{contato.dtNascimento}" >
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
 
 			<p:column width="30">
-				<p:commandButton icon ="ui-icon-trash" action="#{validadorMB.actionExcluir(contato)}"
-					update="@form"/>
+				<p:commandButton icon="ui-icon-trash"
+					action="#{validadorMB.actionExcluir(contato)}" update="@form" />
 			</p:column>
 		</p:dataTable>
 	</h:form>

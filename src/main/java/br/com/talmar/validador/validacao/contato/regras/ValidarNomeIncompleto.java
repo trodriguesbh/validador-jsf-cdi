@@ -7,12 +7,13 @@ import br.com.talmar.validador.validacao.ContextoValidacao;
 import br.com.talmar.validador.validacao.contato.ValidacaoContato;
 
 @RequestScoped
-public class ValidarNomeContato implements ValidacaoContato {
+public class ValidarNomeIncompleto implements ValidacaoContato {
 
 	@Override
 	public void validar(ContextoValidacao contexto, Contato dado) {
-		contexto.validar(null == dado.getNome() || "".equals(dado.getNome()),
-				"Nome deve ser preenchido");
+		String[] nomes = dado.getNome().split("\\W+");
+		contexto.validar(nomes.length < 3,
+				"Nome incompleto. Deve ser informado 3 nomes");
 	}
 
 }

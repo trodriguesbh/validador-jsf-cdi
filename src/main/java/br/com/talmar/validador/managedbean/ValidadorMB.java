@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.talmar.validador.bean.ContatoBean;
 import br.com.talmar.validador.exceptions.Violacao;
 import br.com.talmar.validador.exceptions.ViolacoesException;
 import br.com.talmar.validador.model.Contato;
-import br.com.talmar.validador.service.ContatoService;
 
 @Named("validadorMB")
 @ViewScoped
@@ -25,8 +26,8 @@ public class ValidadorMB implements Serializable {
 	private static final long serialVersionUID = -1347751506591380493L;
 	private Contato contato;
 
-	@Inject
-	private ContatoService service;
+	@EJB
+	private ContatoBean service;
 
 	private List<Contato> contatos;
 
@@ -53,6 +54,7 @@ public class ValidadorMB implements Serializable {
 			contato = new Contato();
 			contatos = service.carregarTodos();
 		} catch (ViolacoesException e) {
+			e.printStackTrace();
 			addViolacoes(e);
 		}
 

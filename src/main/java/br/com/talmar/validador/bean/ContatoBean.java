@@ -1,7 +1,8 @@
-package br.com.talmar.validador.service;
+package br.com.talmar.validador.bean;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -13,7 +14,8 @@ import br.com.talmar.validador.repository.ContatoRepository;
 import br.com.talmar.validador.validacao.contato.ValidadorContato;
 
 @Stateless
-public class ContatoService {
+@Local
+public class ContatoBean {
 	
 	@Inject
 	private ContatoRepository repository;
