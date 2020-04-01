@@ -25,11 +25,12 @@ body {
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" label="Nome" size="30"
-					value="#{validadorMB.contato.nome}" required="true" requiredMessage="Nome preenchimento obrigatório"/>
+					value="#{validadorMB.contato.nome}" required="true" requiredMessage="Nome obrigatório"/>
 
 				<p:outputLabel value="Email" for="email" />
 				<p:inputText id="email" label="Email" size="30"
-					value="#{validadorMB.contato.email}" required="true" requiredMessage="Email preenchimento obrigatório"/>
+					value="#{validadorMB.contato.email}" required="true" requiredMessage="Email obrigatório">
+					</p:inputText>
 
 				<p:outputLabel value="Dt. Nasc" for="dtnasc" />
 				<p:calendar id="dtnasc" value="#{validadorMB.contato.dtNascimento}" showOtherMonths="true" showWeek="true" mask="99/99/9999" pattern="dd/MM/yyyy" />
